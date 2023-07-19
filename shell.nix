@@ -43,4 +43,5 @@ mkShell {
 
   AMEBAD_IMAGE_TOOL="${ambd_flash_tool}/bin/amebad_image_tool";
   UPLOAD_PATH = "/dev/ttyUSB0";
+  ASDK_TOOLCHAIN = "${gcc-arm-embedded-10}";
 }

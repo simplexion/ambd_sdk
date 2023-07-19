@@ -73,6 +73,7 @@ BUILD_TARGET_ROM2_FOLDER = $(ROOTDIR)/build/rom2
 
 IMAGE_TARGET_FOLDER     = $(ROOTDIR)/image
 
+ifeq ($(ASDK_TOOLCHAIN),)
 ifeq ($(COMPILEOS),$(LINUX_OS))
 ASDK_TOOLCHAIN = $(TOOLCHAINDIR)/linux/asdk-6.4.1/linux/newlib
 ASDK_TOOLCHAIN_R = ../toolchain/linux/asdk-6.4.1/linux/newlib
@@ -82,6 +83,7 @@ ASDK_TOOLCHAIN_R = ../toolchain/cygwin/asdk-6.4.1/cygwin/newlib
 else ifeq ($(COMPILEOS),$(DARWIN_OS))
 ASDK_TOOLCHAIN = $(TOOLCHAINDIR)/darwin/asdk-6.5.0-darwin-newlib-build-999+-10.13/darwin/newlib
 ASDK_TOOLCHAIN_R = ../toolchain/darwin/asdk-6.5.0-darwin-newlib-build-999+-10.13/darwin/newlib
+endif
 endif
 
 tool_dir = $(ASDK_TOOLCHAIN)/bin
