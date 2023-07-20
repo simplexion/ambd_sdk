@@ -4,6 +4,7 @@
 
 #if defined CONFIG_BT && CONFIG_BT
 #define CONFIG_FTL_ENABLED
+#define FTL_MEM_CUSTEM              1
 #endif
 
 #if defined CONFIG_BT_SCATTERNET && CONFIG_BT_SCATTERNET
