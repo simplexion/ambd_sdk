@@ -1,6 +1,19 @@
 
 .PHONY: all clean flash debug setup mp
 
+THIS_MAKEFILE := $(lastword $(MAKEFILE_LIST))
+ASDK := $(patsubst %Makefile,%,$(THIS_MAKEFILE))asdk
+
+ifneq ($(SRCDIR),)
+MAKE_ARGS += "SRCDIR=$(SRCDIR)"
+endif
+ifneq ($(INCDIR),)
+MAKE_ARGS += "INCDIR=$(INCDIR)"
+endif
+ifneq ($(CONFIGDIR),)
+MAKE_ARGS += "CONFIGDIR=$(CONFIGDIR)"
+endif
+
 #*****************************************************************************#
 #                               Object FILE LIST                              #
 #*****************************************************************************#
@@ -12,78 +25,78 @@ OBJS =
 
 # Define the Rules to build the core targets
 all: CORE_TARGETS
-	make -C asdk image3_s
-	make -C asdk bootloader
-	make -C asdk image2_ns
+	make -C $(ASDK) $(MAKE_ARGS) image3_s
+	make -C $(ASDK) $(MAKE_ARGS) bootloader
+	make -C $(ASDK) $(MAKE_ARGS) image2_ns
 	
 mp: CORE_TARGETS
-	make -C asdk mp_image3_s
-	make -C asdk bootloader
-	make -C asdk mp_image2_ns
+	make -C $(ASDK) $(MAKE_ARGS) mp_image3_s
+	make -C $(ASDK) $(MAKE_ARGS) bootloader
+	make -C $(ASDK) $(MAKE_ARGS) mp_image2_ns
 	
 image2: CORE_TARGETS
-	make -C asdk image2_ns
+	make -C $(ASDK) $(MAKE_ARGS) image2_ns
 	
 setup:
-	make -C asdk $(MAKECMDGOALS)
+	make -C $(ASDK) $(MAKE_ARGS) $(MAKECMDGOALS)
 
 flash:
-	make -C asdk gdb
+	make -C $(ASDK) $(MAKE_ARGS) gdb
 
 debug:
-	make -C asdk debug
+	make -C $(ASDK) $(MAKE_ARGS) debug
 
 xip: CORE_TARGETS
-	make -C asdk lib_all
-	make -C asdk image3_s
-	make -C asdk bootloader
-	make -C asdk image2_ns
+	make -C $(ASDK) $(MAKE_ARGS) lib_all
+	make -C $(ASDK) $(MAKE_ARGS) image3_s
+	make -C $(ASDK) $(MAKE_ARGS) bootloader
+	make -C $(ASDK) $(MAKE_ARGS) image2_ns
 
 rom_debug_if_need: CORE_TARGETS
-	make -C asdk rom_ns
-	make -C asdk rom
-	make -C asdk copy_rom
+	make -C $(ASDK) $(MAKE_ARGS) rom_ns
+	make -C $(ASDK) $(MAKE_ARGS) rom
+	make -C $(ASDK) $(MAKE_ARGS) copy_rom
 
 rom2: CORE_TARGETS
-	make -C asdk rom2
+	make -C $(ASDK) $(MAKE_ARGS) rom2
 
 clean: CORE_TARGETS
-	make -C asdk clean
+	make -C $(ASDK) $(MAKE_ARGS) clean
 
 clean_all: CORE_TARGETS
-	#make -C asdk clean_rom
-	make -C asdk clean_all
+	#make -C $(ASDK) $(MAKE_ARGS) clean_rom
+	make -C $(ASDK) $(MAKE_ARGS) clean_all
 
 menuconfig: CORE_TARGETS
-	make -C asdk menuconfig
+	make -C $(ASDK) $(MAKE_ARGS) menuconfig
 
 gdb: CORE_TARGETS
-	make -C asdk gdb #step2: load flash if need
+	make -C $(ASDK) $(MAKE_ARGS) gdb #step2: load flash if need
 	#please use tools\AmebaZ\Image Tool!!!!!!!!!!!!!!!!!!
 	#user guide: WS_20160928_WLAN5_AmebaZ_Image_Tool_User_Guide_1v0
 
 gdbloadrom: CORE_TARGETS
-	make -C asdk gdbloadrom #step1: load rom if need
+	make -C $(ASDK) $(MAKE_ARGS) gdbloadrom #step1: load rom if need
 
 
 #not use now
 #bootloader: CORE_TARGETS
-#	make -C asdk bootloader
+#	make -C $(ASDK) $(MAKE_ARGS) bootloader
 #img2: CORE_TARGETS
-#	make -C asdk image2_ns
+#	make -C $(ASDK) $(MAKE_ARGS) image2_ns
 #img3: CORE_TARGETS
-#	make -C asdk image3_s
+#	make -C $(ASDK) $(MAKE_ARGS) image3_s
 #clean_xip: CORE_TARGETS
-#	make -C asdk clean_xip
+#	make -C $(ASDK) $(MAKE_ARGS) clean_xip
 #
 #gdb_all: CORE_TARGETS
-#	make -C asdk gdb_all
+#	make -C $(ASDK) $(MAKE_ARGS) gdb_all
 #gdbboot: CORE_TARGETS
-#	make -C asdk gdbboot #boot from RAM
+#	make -C $(ASDK) $(MAKE_ARGS) gdbboot #boot from RAM
 #gdbbootxip: CORE_TARGETS
-#	make -C asdk gdbbootxip #step3: boot from flash
+#	make -C $(ASDK) $(MAKE_ARGS) gdbbootxip #step3: boot from flash
 #gdbloadromall: CORE_TARGETS
-#	make -C asdk gdbloadromall #step1: load rom if need
+#	make -C $(ASDK) $(MAKE_ARGS) gdbloadromall #step1: load rom if need
 #*****************************************************************************#
 #              GENERATE OBJECT FILE 
 #*****************************************************************************#

@@ -2,8 +2,8 @@
 #*****************************************************************************#
 #                                Variable Definition                          #
 #*****************************************************************************#
-CONFIGDIR		= $(ABS_ROOTDIR)/config
-SCRIPTSDIR		= $(CONFIGDIR)/scripts
+CONFIGDIR		?= $(ABS_ROOTDIR)/config
+SCRIPTSDIR		= $(ABS_ROOTDIR)/config/scripts
 MENU_CONFIG		= $(CONFIGDIR)/.config
 include $(MENU_CONFIG)
 
@@ -15,8 +15,8 @@ ROOTDIR		:= $(shell realpath --relative-to=$(CURRENT_PATH) $(ABS_ROOTDIR))
 endif
 
 #gcc release
-SRCDIR		=$(ROOTDIR)/../../../src/src_hp
-INCDIR		=$(ROOTDIR)/../../../inc/inc_hp
+SRCDIR		?=$(ROOTDIR)/../../../src/src_hp
+INCDIR		?=$(ROOTDIR)/../../../inc/inc_hp
 BASEDIR		= $(ROOTDIR)/../../../../..
 KM0_BUILDDIR	= $(ROOTDIR)/../../project_lp
 KM4_BUILDDIR	= $(ROOTDIR)/../../project_hp
