@@ -41,7 +41,9 @@ SDIOHCFG_TypeDef sdioh_config = {
 };
 
 #if defined(CONFIG_FTL_ENABLED)
+#ifndef FTL_MEM_CUSTEM
 #define FTL_MEM_CUSTEM		0
+#endif
 #if FTL_MEM_CUSTEM == 0
 #error "You should allocate flash sectors to for FTL physical map as following, then set FTL_MEM_CUSTEM to 1. For more information, Please refer to Application Note, FTL chapter. "
 #else
