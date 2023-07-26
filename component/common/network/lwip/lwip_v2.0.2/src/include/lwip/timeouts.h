@@ -112,8 +112,8 @@ void sys_timeout(u32_t msecs, sys_timeout_handler handler, void *arg);
 
 void sys_untimeout(sys_timeout_handler handler, void *arg);
 void sys_restart_timeouts(void);
-#if NO_SYS
 void sys_check_timeouts(void);
+#if NO_SYS
 u32_t sys_timeouts_sleeptime(void);
 #else /* NO_SYS */
 void sys_timeouts_mbox_fetch(sys_mbox_t *mbox, void **msg);
