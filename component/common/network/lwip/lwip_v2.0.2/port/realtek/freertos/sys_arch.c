@@ -590,7 +590,7 @@ int sys_thread_delete(xTaskHandle pid)
   sys_arch_protect() is only required if your port is supporting an operating
   system.
 */
-sys_prot_t sys_arch_protect(void)
+__attribute__((weak)) sys_prot_t sys_arch_protect(void)
 {
 	vPortEnterCritical();
 	return 1;
@@ -602,7 +602,7 @@ sys_prot_t sys_arch_protect(void)
   more information. This function is only required if your port is supporting
   an operating system.
 */
-void sys_arch_unprotect(sys_prot_t pval)
+__attribute__((weak)) void sys_arch_unprotect(sys_prot_t pval)
 {
 	( void ) pval;
 	vPortExitCritical();
