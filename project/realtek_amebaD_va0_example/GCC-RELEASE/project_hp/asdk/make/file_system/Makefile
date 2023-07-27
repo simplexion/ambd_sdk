@@ -16,7 +16,7 @@ OBJS =
 # Define the Rules to build the core targets
 all: CORE_TARGETS
 #	make -C dct all
-	make -C fatfs all
+	# make -C fatfs all
 ifeq ($(CONFIG_BT_EN), y)
 	make -C ftl all
 endif
